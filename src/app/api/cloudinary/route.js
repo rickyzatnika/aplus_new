@@ -13,7 +13,7 @@ export async function GET(req) {
 
   try {
     const response = await axios.get(
-      `https://api.cloudinary.com/v1_1/${cloudName}/resources/image?type=upload&prefix=photo/aplus/${activeButton}&max_results=9`,
+      `https://api.cloudinary.com/v1_1/${cloudName}/resources/image?type=upload&prefix=photo/aplus/${activeButton}`,
       {
         headers: {
           Authorization: `Basic ${auth}`,
