@@ -8,7 +8,10 @@ import Link from "next/link";
 const Services = () => {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
-  const { data, error } = useSWR(`/api/services`, fetcher);
+  const { data, error } = useSWR(
+    `${process.env.NEXT_PUBLIC_API}/api/services`,
+    fetcher
+  );
 
   useEffect(() => {}, [data]);
 
