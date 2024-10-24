@@ -1,0 +1,28 @@
+import { NextResponse } from "next/server";
+import axios from "axios";
+
+export async function GET(request) {
+  const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+  const apiSecret = process.env.NEXT_PUBLIC_API_SECRET;
+  const cloudName = process.env.NEXT_PUBLIC_CLOUD_NAME;
+
+  const auth = Buffer.from(`${apiKey}:${apiSecret}`).toString("base64");
+
+  try {
+    const cloudinaryResponse = await axios.get(
+      `https://api.cloudinary.com/v1_1/${cloudName}/resources/image?type=upload&prefix=photo/aplus&max_results=9`,
+      {
+        headers: {
+          Authorization: `Basic ${auth}`,
+        },
+      }
+    );
+
+    return NextResponse.json(cloudinaryResponse.data.resources);
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Error fetching images" },
+      { status: 500 }
+    );
+  }
+}

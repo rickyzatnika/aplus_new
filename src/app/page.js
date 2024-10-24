@@ -28,22 +28,11 @@ export default function Home() {
 
   useEffect(() => {
     const getGallery = async () => {
-      const apiKey = process.env.NEXT_PUBLIC_API_KEY;
-      const apiSecret = process.env.NEXT_PUBLIC_API_SECRET;
-      const cloudName = process.env.NEXT_PUBLIC_CLOUD_NAME;
-      const auth = btoa(`${apiKey}:${apiSecret}`);
-
       try {
         setIsLoading(true);
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URI}/v1_1/${cloudName}/resources/image?type=upload&prefix=photo/aplus/${activeButton}&max_results=9`,
-          {
-            headers: {
-              Authorization: `Basic ${auth}`,
-            },
-          }
-        );
-        setDatas(response.data.resources);
+        const response = await axios.get(`/api/cloudinary`);
+        console.log(response.data);
+        setDatas(response.data);
       } catch (error) {
         setIsLoading(false);
         console.error("Error fetching images:", error);
@@ -515,18 +504,18 @@ export default function Home() {
             {activeButton === "" ? (
               <>
                 {!isLoading &&
-                  datas.map((g, i) => (
+                  datas?.map((g, i) => (
                     <LightGallery
                       speed={800}
                       elementClassNames="w-full relative mb-3 z-10 overflow-hidden "
                       key={i}
                     >
                       <Link
-                        href={g.secure_url}
+                        href={g?.secure_url}
                         passHref
                         prefetch={true}
                         data-sub-html={`<h4>© APLUS MEDIA KREASI </h4> <p class="date"> ${moment(
-                          g.created_at
+                          g?.created_at
                         )
                           .startOf("hour")
                           .fromNow()}</p>`}
@@ -534,10 +523,10 @@ export default function Home() {
                         <div className="w-full h-full  overflow-hidden">
                           <Image
                             className="w-full  h-full  hover:scale-110 transition-all duration-700 ease-linear  object-cover  mx-auto"
-                            src={g.secure_url}
+                            src={g?.secure_url}
                             alt="image"
                             placeholder="blur"
-                            blurDataURL={g.secure_url}
+                            blurDataURL={g?.secure_url}
                             width={1200}
                             height={900}
                           />
@@ -549,18 +538,18 @@ export default function Home() {
             ) : (
               <>
                 {!isLoading &&
-                  datas.map((g, i) => (
+                  datas?.map((g, i) => (
                     <LightGallery
                       speed={800}
                       elementClassNames="w-full overflow-hidden relative mb-6 z-10 h-full "
                       key={i}
                     >
                       <Link
-                        href={g.secure_url}
+                        href={g?.secure_url}
                         passHref
                         prefetch={true}
                         data-sub-html={`<h4>© APLUS MEDIA KREASI </h4> <p class="date"> ${moment(
-                          g.created_at
+                          g?.created_at
                         )
                           .startOf("hour")
                           .fromNow()}</p>`}
@@ -568,10 +557,10 @@ export default function Home() {
                         <div className="md:w-96 h-full md:h-96 overflow-hidden">
                           <Image
                             className="w-full md:w-96 h-full md:h-96 hover:scale-110 transition-all duration-700 ease-linear  object-cover mb-6 mx-auto"
-                            src={g.secure_url}
+                            src={g?.url}
                             alt="image"
                             placeholder="blur"
-                            blurDataURL={g.secure_url}
+                            blurDataURL={g?.secure_url}
                             width={1200}
                             height={900}
                           />

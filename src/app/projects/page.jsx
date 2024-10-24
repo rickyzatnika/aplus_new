@@ -1,18 +1,16 @@
-"use client"
+"use client";
 
 import { useEffect } from "react";
 import useSWR from "swr";
 import Image from "next/image";
 import Link from "next/link";
 
-
 const Services = () => {
-
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
   const { data, error } = useSWR(`/api/services`, fetcher);
 
-  useEffect(() => { }, [data]);
+  useEffect(() => {}, [data]);
 
   if (error)
     return (
@@ -38,19 +36,19 @@ const Services = () => {
   return (
     <>
       <section className="overflow-hidden">
-
         <div className="w-full h-full bg-white py-8">
           <p className="text-center leading-relaxed text-xl text-black/80 w-full lg:w-4/6 mx-auto p-6 text">
-            The best ideas come frome meetings, which is why when working with us there is no such thing as too many meetings.
-            Want to have a meeting to go over all of the event and production details. <br /> Lets do it
-
+            The best ideas come frome meetings, which is why when working with
+            us there is no such thing as too many meetings. Want to have a
+            meeting to go over all of the event and production details. <br />{" "}
+            Lets do it
           </p>
 
           <div className="w-full h-full px-2 lg:px-20">
             <div className="grid grid-cols-1 gap-4 lg:gap-8 lg:grid-cols-2 py-10 ">
               {/* Event Documentation */}
               {data?.map((project, i) => (
-                <Link key={i} href={`/projects/${project?._id.toString()}`} >
+                <Link key={i} href={`/projects/${project?._id.toString()}`}>
                   <div className="group cursor-pointer transition duration-700 ease-linear mb-6 lg:mb-0">
                     <div className="overflow-hidden w-full h-full lg:h-80 relative group">
                       <Image
@@ -81,9 +79,7 @@ const Services = () => {
                     <h3 className="pt-3 font-semibold text-xl">
                       {project?.title}
                     </h3>
-                    <p>
-                      {project?.desc}
-                    </p>
+                    <p>{project?.desc}</p>
                   </div>
                 </Link>
               ))}

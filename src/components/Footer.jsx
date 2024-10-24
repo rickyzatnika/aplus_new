@@ -17,7 +17,7 @@ const Footer = () => {
             Aplus Multi Kreasi are a creative agency in the marketing spehere that focuses on Event, Production and Branding.
           </p>
         </div>
-        <div className=''>
+        <div className='flex flex-col'>
           <span className=" text-zinc-200 font-semibold mb-2">Support</span>
 
           <div className='flex gap-2 items-center text-zinc-400'>
