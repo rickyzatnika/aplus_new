@@ -50,11 +50,6 @@ const Portfolio = () => {
 
   useEffect(() => {
     const getGallery = async () => {
-      const apiKey = process.env.NEXT_PUBLIC_API_KEY;
-      const apiSecret = process.env.NEXT_PUBLIC_API_SECRET;
-      const cloudName = process.env.NEXT_PUBLIC_CLOUD_NAME;
-      const auth = btoa(`${apiKey}:${apiSecret}`);
-
       try {
         setIsLoading(true);
         const response = await axios.get(`/api/cloudinary`);

@@ -2,6 +2,7 @@
   "name": "aplus",
   "version": "0.1.0",
   "private": true,
+	"homepage": "https://apluskreasi.vercel.app/",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
