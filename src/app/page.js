@@ -30,17 +30,19 @@ export default function Home() {
     const getGallery = async () => {
       try {
         setIsLoading(true);
-        const response = await axios.get(`/api/cloudinary`);
-        console.log(response.data);
-        setDatas(response.data);
+        // Kirim activeButton sebagai query parameter ke API
+        const response = await axios.get(
+          `/api/cloudinary?activeButton=${activeButton}`
+        );
+        setDatas(response.data); // Set data ke state
       } catch (error) {
         setIsLoading(false);
         console.error("Error fetching images:", error);
       } finally {
         setIsLoading(false);
-        // Setelah permintaan selesai, isLoading diubah menjadi false
       }
     };
+
     getGallery();
   }, [activeButton]);
 

@@ -52,16 +52,19 @@ const Portfolio = () => {
     const getGallery = async () => {
       try {
         setIsLoading(true);
-        const response = await axios.get(`/api/cloudinary`);
-        setData(response.data);
+        // Kirim activeButton sebagai query parameter ke API
+        const response = await axios.get(
+          `/api/cloudinary?activeButton=${activeButton}`
+        );
+        setData(response.data); // Set data ke state
       } catch (error) {
         setIsLoading(false);
         console.error("Error fetching images:", error);
       } finally {
         setIsLoading(false);
-        // Setelah permintaan selesai, isLoading diubah menjadi false
       }
     };
+
     getGallery();
   }, [activeButton]);
 
@@ -203,18 +206,18 @@ const Portfolio = () => {
           {activeButton === "" ? (
             <>
               {!isLoading &&
-                data.map((g, i) => (
+                data?.map((g, i) => (
                   <LightGallery
                     speed={800}
                     elementClassNames="w-full relative mb-3 z-10 overflow-hidden "
                     key={i}
                   >
                     <Link
-                      href={g.secure_url}
+                      href={g?.secure_url}
                       passHref
                       prefetch={true}
                       data-sub-html={`<h4>© APLUS MULTI KREASI - INSPIRING PARTNER </h4> <p class="date"> ${moment(
-                        g.created_at
+                        g?.created_at
                       )
                         .startOf("hour")
                         .fromNow()}</p>`}
@@ -222,7 +225,7 @@ const Portfolio = () => {
                       <div className="w-full h-full  overflow-hidden">
                         <Image
                           className="w-full  h-full  hover:scale-110 transition-all duration-700 ease-linear  object-cover  mx-auto"
-                          src={g.secure_url}
+                          src={g?.secure_url}
                           alt="image"
                           placeholder="blur"
                           blurDataURL={g.secure_url}
@@ -237,18 +240,18 @@ const Portfolio = () => {
           ) : (
             <>
               {!isLoading &&
-                data.map((g, i) => (
+                data?.map((g, i) => (
                   <LightGallery
                     speed={800}
                     elementClassNames="w-full overflow-hidden relative mb-3 z-10 h-full "
                     key={i}
                   >
                     <Link
-                      href={g.secure_url}
+                      href={g?.secure_url}
                       passHref
                       prefetch={true}
                       data-sub-html={`<h4>© APLUS MULTI KREASI - INSPIRING PARTNER </h4> <p class="date"> ${moment(
-                        g.created_at
+                        g?.created_at
                       )
                         .startOf("hour")
                         .fromNow()}</p>`}
@@ -256,7 +259,7 @@ const Portfolio = () => {
                       <div className="w-full h-full  overflow-hidden">
                         <Image
                           className="w-full h-full hover:scale-110 transition-all duration-700 ease-linear  object-cover  mx-auto"
-                          src={g.secure_url}
+                          src={g?.secure_url}
                           alt="image"
                           placeholder="blur"
                           blurDataURL={g.secure_url}
